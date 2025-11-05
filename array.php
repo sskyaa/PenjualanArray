@@ -58,7 +58,7 @@ foreach ($beli as $i => $barang) {
 
 
 echo str_repeat("-", 65) . "\n";
-printf("%-52s  %-12s\n", "Total Belanja :", number_format($grandtotal, 0, ',', '.'));
+printf("%-52s  %-12s\n", "Total Belanja    :", number_format($grandtotal, 0, ',', '.'));
 
 
 if ($grandtotal <= 50000) {
@@ -72,7 +72,10 @@ if ($grandtotal <= 50000) {
 $diskon = ($persen_diskon / 100) * $grandtotal;
 
 // Tampilkan Diskon dengan persentasenya
-printf("%-52s  %-0s (%d%%)\n", "Diskon        :", number_format($diskon, 0, ',', '.'), $persen_diskon);
+printf("%-52s  %-0s (%d%%)\n", "Diskon           :", number_format($diskon, 0, ',', '.'), $persen_diskon);
+$total_bayar = $grandtotal - $diskon;
+printf("%-53s %-12s\n", "Total Pembayaran :", number_format($total_bayar, 0, ',', '.'));
+
 echo str_repeat("-", 65) . "\n";
 echo "Terima kasih telah berbelanja di POLGAN MART 😊";
 
