@@ -1,6 +1,6 @@
 <?php
 echo "<h2 style='text-align:center; color:#5a4633;'>🧾  POLGAN MART  🧾</h2>";
-echo "<hr style='width:55%; border:1px solid #8b6b4f;'>";
+echo "<hr style='width:60%; border:1px solid #8b6b4f;'>";
 
 $nama_barang   = ["Tas Ransel", "Sepatu", "Seragam", "Hijab Segi Empat", "Dasi"];
 $harga_barang  = [120000, 200000, 400000, 30000, 10000];
@@ -23,18 +23,28 @@ for ($i = 0; $i < $jumlah_produk; $i++) {
 }
 
 echo "<div style='display:flex; justify-content:center; padding:30px;'>";
-echo "<div style='border:3px solid #8b6b4f; border-radius:12px; padding:30px; width:648px; background-color:#fdf6ec; box-shadow:4px 4px 10px rgba(139,107,79,0.3);'>";
+echo "<div style='border:3px solid #8b6b4f; border-radius:12px; padding:30px; width:640px; background-color:#fdf6ec; box-shadow:4px 4px 10px rgba(139,107,79,0.3);'>";
 echo "<pre style='font-family:Courier New; font-size:16px; text-align:left; color:#4b3a2f; margin:0;'>";
 
-$header = "No  Kode   Nama Barang            Qty   Harga           Total";
-echo $header . "\n";
-echo str_repeat("-", strlen($header)) . "\n";
+// HEADER TABEL (RATA TENGAH)
+$header_no     = str_pad("No", 3, " ", STR_PAD_BOTH);
+$header_kode   = str_pad("Kode", 6, " ", STR_PAD_BOTH);
+$header_nama   = str_pad("Nama Barang", 20, " ", STR_PAD_BOTH);
+$header_qty    = str_pad("Qty", 6, " ", STR_PAD_BOTH);
+$header_harga  = str_pad("Harga", 10, " ", STR_PAD_BOTH);
+$header_total  = str_pad("Total", 12, " ", STR_PAD_BOTH);
+
+printf("%-3s %-6s %-20s %-5s %-15s %-15s\n",
+    "No", "Kode", "Nama Barang", "Qty", "Harga", "Total"
+);
+
+echo str_repeat("-", 65) . "\n";
 
 $no = 1;
 foreach ($beli as $i => $barang) {
     $harga = $total[$i] / $jumlah[$i];
     $kode = $kode_barang[array_search($barang, ["Tas Ransel", "Sepatu", "Seragam", "Hijab Segi Empat", "Dasi"])];
-    printf("%-3s %-6s %-22s %-5s Rp %-12s Rp %-12s\n",
+    printf("%-3s %-6s %-20s %-5s %-15s %-15s\n",
         $no,
         $kode,
         $barang,
@@ -47,9 +57,23 @@ foreach ($beli as $i => $barang) {
 }
 
 
-echo str_repeat("-", strlen($header)) . "\n";
-printf("%-55s Rp %-12s\n", "Total Belanja :", number_format($grandtotal, 0, ',', '.'));
-echo str_repeat("-", strlen($header)) . "\n";
+echo str_repeat("-", 65) . "\n";
+printf("%-52s  %-12s\n", "Total Belanja :", number_format($grandtotal, 0, ',', '.'));
+
+
+if ($grandtotal <= 50000) {
+    $persen_diskon = 5;
+} elseif ($grandtotal <= 100000) {
+    $persen_diskon = 10;
+} else {
+    $persen_diskon = 20;
+}
+
+$diskon = ($persen_diskon / 100) * $grandtotal;
+
+// Tampilkan Diskon dengan persentasenya
+printf("%-52s  %-0s (%d%%)\n", "Diskon        :", number_format($diskon, 0, ',', '.'), $persen_diskon);
+echo str_repeat("-", 65) . "\n";
 echo "Terima kasih telah berbelanja di POLGAN MART 😊";
 
 echo "</pre>";
